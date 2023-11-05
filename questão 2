@@ -1,0 +1,84 @@
+#include <stdio.h>
+#include <string.h>
+
+struct Player {
+    char name[31];
+    char position;
+    int strength;
+};
+
+struct Team {
+    char name[31];
+    struct Player players[11];
+};
+
+float calculateStrength(struct Team team) {
+    int G = team.players[0].strength;
+    int L1 = team.players[1].strength;
+    int L2 = team.players[2].strength;
+    int Z1 = team.players[3].strength;
+    int Z2 = team.players[4].strength;
+    int V1 = team.players[5].strength;
+    int V2 = team.players[6].strength;
+    int M1 = team.players[7].strength;
+    int M2 = team.players[8].strength;
+    int A1 = team.players[9].strength;
+    int A2 = team.players[10].strength;
+
+    float F = (8 * G + 10 * (L1 + L2) + 5 * (Z1 + Z2) + 8 * (V1 + V2) + 11 * (M1 + M2) + 12 * (A1 + A2)) / 100.0;
+    return F;
+}
+
+int main() {
+    struct Team team1, team2;
+    
+    printf("Informe o nome do time 1: ");
+    scanf("%30[^\n]s", team1.name);
+    getchar();  // Consumir a quebra de linha
+
+    printf("Informe os dados dos jogadores do time 1:\n");
+    for (int i = 0; i < 11; i++) {
+        printf("Jogador %d:\n", i + 1);
+        printf("Nome: ");
+        scanf("%30[^\n]s", team1.players[i].name);
+        getchar();  // Consumir a quebra de linha
+        printf("Posição: ");
+        scanf(" %c", &team1.players[i].position);
+        printf("Força: ");
+        scanf("%d", &team1.players[i].strength);
+        getchar();  // Consumir a quebra de linha
+    }
+
+    printf("Informe o nome do time 2: ");
+    scanf("%30[^\n]s", team2.name);
+    getchar();  // Consumir a quebra de linha
+
+    printf("Informe os dados dos jogadores do time 2:\n");
+    for (int i = 0; i < 11; i++) {
+        printf("Jogador %d:\n", i + 1);
+        printf("Nome: ");
+        scanf("%30[^\n]s", team2.players[i].name);
+        getchar();  // Consumir a quebra de linha
+        printf("Posição: ");
+        scanf(" %c", &team2.players[i].position);
+        printf("Força: ");
+        scanf("%d", &team2.players[i].strength);
+        getchar();  // Consumir a quebra de linha
+    }
+
+    float strengthTeam1 = calculateStrength(team1);
+    float strengthTeam2 = calculateStrength(team2);
+
+    printf("Força do time 1 (%s): %.2f\n", team1.name, strengthTeam1);
+    printf("Força do time 2 (%s): %.2f\n", team2.name, strengthTeam2);
+
+    if (strengthTeam1 > strengthTeam2) {
+        printf("O time %s é o mais forte.\n", team1.name);
+    } else if (strengthTeam2 > strengthTeam1) {
+        printf("O time %s é o mais forte.\n", team2.name);
+    } else {
+        printf("Os times têm a mesma força.\n");
+    }
+
+    return 0;
+}
