@@ -1,0 +1,39 @@
+#include <stdio.h>
+
+void printArray(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    int input_values[10];
+    
+     printf("Digite 10 valores inteiros positivos separados por espaço:\n");
+    for (int i = 0; i < 10; i++) {
+        scanf("%d", &input_values[i]);
+    }
+
+    int n = 10; 
+
+    printArray(input_values, n);
+
+    while (n > 1) {
+        int new_values[10];
+        int new_n = 0;
+
+        for (int i = 0; i < n - 1; i += 2) {
+            new_values[new_n++] = input_values[i] + input_values[i + 1];
+        }
+
+             printArray(new_values, new_n);
+
+             for (int i = 0; i < new_n; i++) {
+            input_values[i] = new_values[i];
+        }
+        n = new_n;
+    }
+
+    return 0;
+}
